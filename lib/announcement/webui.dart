@@ -1,5 +1,5 @@
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+import 'dart:html';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -16,10 +16,11 @@ class _SubscriptionFormState extends State<SubscriptionForm>
 
   @override
   void initState() {
-    // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
-        createdViewId,
-        (int viewId) => html.IFrameElement()
+        'hello-html1',
+        (int viewId) => IFrameElement()
+          ..width = '640'
+          ..height = '360'
           ..src =
               'https://docs.google.com/forms/d/e/1FAIpQLSeolQWZoQvrHVTchDrCuQIHz5AR2M4njBn-VQCW9f1Ifot5nw/viewform'
           ..style.border = 'none');
@@ -40,9 +41,7 @@ class _SubscriptionFormState extends State<SubscriptionForm>
       height: 200,
       child: Directionality(
         textDirection: TextDirection.ltr,
-        child: HtmlElementView(
-          viewType: createdViewId,
-        ),
+        child: HtmlElementView(viewType: 'hello-html1'),
       ),
     );
   }

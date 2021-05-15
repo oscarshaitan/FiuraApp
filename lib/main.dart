@@ -1,10 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'announcement/announcement_view.dart';
 import 'home/home_view.dart';
+import 'injection_container.dart' as injection;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await injection.init();
   runApp(MyApp());
 }
 
@@ -30,72 +35,83 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 2);
+
+  void animatePage(
+      {required int page, bool fromDrawer = false, BuildContext? context}) {
+    _pageController.animateToPage(page,
+        duration: Duration(milliseconds: 300), curve: Curves.ease);
+    if (fromDrawer) {
+      Navigator.pop(context!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            DrawerHeader(
-              child: _TabButton(
-                label: 'Nosotros',
-                onPressed: () {},
-              ),
-              decoration: BoxDecoration(color: Colors.black),
-            ),
-            _TabButton(
-              label: 'Nosotros',
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            ),
-            _TabButton(
-              label: 'Convocatoria',
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AnnouncementView()));
-              },
-            ),
-            _TabButton(
-              label: 'Programación',
-              onPressed: () {},
-            ),
-            _TabButton(
-              label: 'Aprende',
-              onPressed: () {},
-            ),
-            _TabButton(
-              label: 'Blog',
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          _NavTabBar(
-            scaffoldKey: _scaffoldKey,
-            pageController: _pageController,
-          ),
-          Flexible(
-            child: PageView(
-              controller: _pageController,
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: Colors.white,
+        drawer: Drawer(
+          child: Container(
+            color: Colors.black,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _ScrollPageWidget(child: HomePage()),
-                _ScrollPageWidget(child: Text('Nosotros')),
-                AnnouncementView(),
-                _ScrollPageWidget(child: Text('Programación')),
-                _ScrollPageWidget(child: Text('Aprende')),
-                _ScrollPageWidget(child: Text('Blog')),
+                _TabButton(
+                  label: 'Inicio',
+                  onPressed: () {
+                    animatePage(page: 0, fromDrawer: true, context: context);
+                  },
+                ),
+                _TabButton(
+                  label: 'Nosotros',
+                  onPressed: () {},
+                ),
+                _TabDropButton(
+                  animateToPage: ({required int page}) {
+                    animatePage(page: page, fromDrawer: true, context: context);
+                  },
+                ),
+                /*_TabButton(
+                  label: 'Programación',
+                  onPressed: () {},
+                ),
+                _TabButton(
+                  label: 'Aprende',
+                  onPressed: () {},
+                ),
+                _TabButton(
+                  label: 'Blog',
+                  onPressed: () {},
+                ),*/
               ],
             ),
           ),
-        ],
+        ),
+        body: Column(
+          children: [
+            _NavTabBar(
+              scaffoldKey: _scaffoldKey,
+              animatePage: animatePage,
+            ),
+            Flexible(
+              child: PageView(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  _ScrollPageWidget(child: HomePage()),
+                  _ScrollPageWidget(child: Text('Nosotros')),
+                  AnnouncementView(),
+                  AnnouncementView(),
+                  _ScrollPageWidget(child: Text('Programación')),
+                  _ScrollPageWidget(child: Text('Aprende')),
+                  _ScrollPageWidget(child: Text('Blog')),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -120,12 +136,13 @@ class _ScrollPageWidget extends StatelessWidget {
 }
 
 class _NavTabBar extends StatelessWidget {
-  final PageController pageController;
+  final Function({BuildContext? context, bool fromDrawer, required int page})
+      animatePage;
 
   const _NavTabBar({
     Key? key,
     required GlobalKey<ScaffoldState> scaffoldKey,
-    required this.pageController,
+    required this.animatePage,
   })   : _scaffoldKey = scaffoldKey,
         super(key: key);
 
@@ -136,21 +153,26 @@ class _NavTabBar extends StatelessWidget {
     return Container(
       color: Colors.black,
       child: ScreenTypeLayout.builder(
-        mobile: (BuildContext context) => Row(
+        mobile: (BuildContext context) => Stack(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  color: Theme.of(context).accentColor,
+            Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  onPressed: () {
+                    _scaffoldKey.currentState?.openDrawer();
+                  },
                 ),
-                onPressed: () {
-                  _scaffoldKey.currentState?.openDrawer();
-                },
               ),
             ),
-            Expanded(child: Center(child: _LogoTabIcon())),
+            Center(child: _LogoTabIcon()),
           ],
         ),
         desktop: (BuildContext layoutContext) => Row(
@@ -164,36 +186,34 @@ class _NavTabBar extends StatelessWidget {
                     animatePage(page: 0);
                   },
                 ),
-                _TabButton(
+                /* _TabButton(
                   label: 'Nosotros',
                   onPressed: () {
                     animatePage(page: 1);
                   },
+                ),*/
+                _TabDropButton(
+                  animateToPage: animatePage,
                 ),
-                _TabButton(
-                  label: 'Convocatoria',
-                  onPressed: () {
-                    animatePage(page: 2);
-                  },
-                ),
-                _TabButton(
+
+                /* _TabButton(
                   label: 'Programación',
-                  onPressed: () {
-                    animatePage(page: 3);
-                  },
-                ),
-                _TabButton(
-                  label: 'Aprende',
                   onPressed: () {
                     animatePage(page: 4);
                   },
                 ),
                 _TabButton(
-                  label: 'Blog',
+                  label: 'Aprende',
                   onPressed: () {
                     animatePage(page: 5);
                   },
                 ),
+                _TabButton(
+                  label: 'Blog',
+                  onPressed: () {
+                    animatePage(page: 6);
+                  },
+                ),*/
               ],
             ),
           ],
@@ -201,10 +221,6 @@ class _NavTabBar extends StatelessWidget {
       ),
     );
   }
-
-  Future<void> animatePage({required int page}) =>
-      pageController.animateToPage(page,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
 }
 
 class _LogoTabIcon extends StatelessWidget {
@@ -246,6 +262,50 @@ class _TabButton extends StatelessWidget {
           label,
           style: TextStyle(color: Colors.white),
         ),
+      ),
+    );
+  }
+}
+
+class _TabDropButton extends StatelessWidget {
+  final void Function({required int page}) animateToPage;
+
+  const _TabDropButton({Key? key, required this.animateToPage})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: PopupMenuButton(
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 16),
+          child: Center(
+            child: Text(
+              'Convocatoria',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        itemBuilder: (context) {
+          return [
+            PopupMenuItem(
+              value: 0,
+              child: Text('Bandas'),
+            ),
+            /* PopupMenuItem(
+              value: 1,
+              child: Text('Prensa'),
+            ),*/
+          ];
+        },
+        onSelected: (int option) async {
+          if (option == 0) {
+            animateToPage(page: 2);
+          } else {
+            animateToPage(page: 3);
+          }
+        },
       ),
     );
   }

@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "969306680457",
+    "firebase_url": "https://fiuraflutter.firebaseio.com",
+    "project_id": "fiuraflutter",
+    "storage_bucket": "fiuraflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969306680457:android:1b7ec9e81723c9dbcb6a58",
+        "android_client_info": {
+          "package_name": "com.AllegorIT.fiura2018"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969306680457-8jctvjh4l323i0mst7ol1m49dv9c2s7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AllegorIT.fiura2018",
+            "certificate_hash": "937c184beb3e45d9346861be7d51d3905aa5c1ca"
+          }
+        },
+        {
+          "client_id": "969306680457-b5j0e8a01oi5jm9307ed1v8icstn60j2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AllegorIT.fiura2018",
+            "certificate_hash": "12dd5cf7a3f7ea6d005fff466825341a6305e19e"
+          }
+        },
+        {
+          "client_id": "969306680457-nmcvg38sqq2bn6j2a9ev5e0v6lf01aoc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AllegorIT.fiura2018",
+            "certificate_hash": "8d553669a85147bc825dba658eb1b3d4fcbf1531"
+          }
+        },
+        {
+          "client_id": "969306680457-ph5v1atsbbpcpmr756lh47rqjfi6l9bc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AllegorIT.fiura2018",
+            "certificate_hash": "d2215f7190f8782c98115ff28539c0c08ff56d3a"
+          }
+        },
+        {
+          "client_id": "969306680457-9ibj0rr07vrjvfntqor8br3t3bue8k9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBAYbnkmQR7bMdmqYUnlheCUF6BheZ36c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969306680457-41grvhq8r6a48ntnk63kjo296fg3e4s1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "969306680457-6ifkvlqt4i8m11f98lnvh9a5k6eqkbhe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.allegorit.fiura"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969306680457:android:51f855f9108d712fcb6a58",
+        "android_client_info": {
+          "package_name": "com.otigreros.fiura_web"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969306680457-9ibj0rr07vrjvfntqor8br3t3bue8k9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBAYbnkmQR7bMdmqYUnlheCUF6BheZ36c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969306680457-41grvhq8r6a48ntnk63kjo296fg3e4s1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "969306680457-6ifkvlqt4i8m11f98lnvh9a5k6eqkbhe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.allegorit.fiura"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>969306680457-6ifkvlqt4i8m11f98lnvh9a5k6eqkbhe.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.969306680457-6ifkvlqt4i8m11f98lnvh9a5k6eqkbhe</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>969306680457-5lu9d698orfbiakqo4f9c5cf3khae757.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBTjrBlaQkFIo5y2IysBRoITMajwMOp8hk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>969306680457</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.allegorit.fiura</string>
+	<key>PROJECT_ID</key>
+	<string>fiuraflutter</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fiuraflutter.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:969306680457:ios:37450c0b0de1e37f</string>
+	<key>DATABASE_URL</key>
+	<string>https://fiuraflutter.firebaseio.com</string>
+</dict>
+</plist>
